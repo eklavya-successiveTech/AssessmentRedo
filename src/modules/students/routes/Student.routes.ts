@@ -9,6 +9,7 @@ const router = Router();
 router.post("/students", authenticate, validateRequest(StudentSchema), StudentController.addStudent);
 router.get("/students", authenticate, StudentController.getStudents);
 router.get("/students/by-age", authenticate, StudentController.getStudentsMinMax);
+router.get("/students/stats", StudentController.getStudentStats);
 router.get("/students/:id", authenticate, StudentController.getOneStudent);
 router.put("/students/:id", authenticate, StudentController.updateStudent);
 router.delete("/students/:id", authenticate, StudentController.deleteStudent);

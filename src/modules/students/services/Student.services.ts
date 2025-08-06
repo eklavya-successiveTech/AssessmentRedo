@@ -41,4 +41,18 @@ export class StudentService {
     if (!students) throw new Error("Students not found");
     return students;
   }
+  static async getStudentStats(){
+    const result = await StudentModel.aggregate([
+        {
+            $group:{
+                _id: null,
+                averageAge: { $avg : "$age" },
+                minAge: { $min: "$age" },
+                maxAge: { $max: "$age" },
+                totalStudents: { $sum: 1 }
+            }
+        }
+    ])
+    return result[0] || {};
+  }
 }

@@ -56,15 +56,34 @@ export class StudentController {
     }
   }
 
-  static async getStudentsMinMax(req: Request, res: Response, next: NextFunction){
-    try{
-        const {minAge, maxAge}= req.query;
-        const min = parseInt(minAge as string);
-        const max = parseInt(maxAge as string);
-        const students = await StudentService.getStudentByMinMax(min, max);
-        res.status(200).json({status: true, data: students});
-    }catch(err){
-        next(err);
+  static async getStudentsMinMax(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { minAge, maxAge } = req.query;
+      const min = parseInt(minAge as string);
+      const max = parseInt(maxAge as string);
+      const students = await StudentService.getStudentByMinMax(min, max);
+      res.status(200).json({ status: true, data: students });
+    } catch (err) {
+      next(err);
+    }
+  }
+  static async getStudentStats(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const stats = await StudentService.getStudentStats();
+      return res.status(200).json({
+        success: true,
+        data: stats,
+      });
+    } catch (err) {
+      next(err);
     }
   }
 }
